@@ -63,11 +63,13 @@ class Downloadify:
         file_extension_label.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
         # Available file extensions
-        file_extensions = ['mp4', 'webm', 'mkv', 'flv', '3gp']
+        file_extensions = ['mp4', 'webm']
 
         combobox = customtkinter.CTkComboBox(self.root, values=file_extensions)
         combobox.place(relx=0.5, rely=0.6, anchor=tk.CENTER)
 
+        # Save the combobox reference to access it later
+        self.file_extension_combobox = combobox
 
         # Download button
         button_font = customtkinter.CTkFont(family='Inter', size=16, weight='bold')
@@ -76,31 +78,33 @@ class Downloadify:
         button.place(relx=0.5, rely=0.8, anchor=tk.CENTER)
 
 
-        
-
-        
-
-    def download(self):
-        # Try catch block to catch errors
-        try:
-            # Download the video using pytube
-            url = YouTube(str(self.link_var.get()))
-            # Format as an mp4 for best quality, if mp4 isn't available it goes to pytube's default
-            video = url.streams.filter(file_extension='mp4').first()
-            # Place it in the downloads folder
-            video.download(downloads_folder)
             
-            # Success message
-            label_font = customtkinter.CTkFont(family='Inter', size=15, weight='bold')
-            label = customtkinter.CTkLabel(self.root, text="Done!", font =label_font)
-            label.place(relx=0.5, rely=0.75, anchor=tk.CENTER)
+    def download(self):
+            try:
+                # Download the video using pytube
+                url = YouTube(str(self.link_var.get()))
 
-        # Error caught (No URL inputted/Not a YouTube URL)
-        except Exception as e:
-            # Error message text display
-            label_font = customtkinter.CTkFont(family='Inter', size=15, weight='bold')
-            label = customtkinter.CTkLabel(self.root, text="Error, paste a valid YouTube URL", font =label_font)
-            label.place(relx=0.5, rely=0.75, anchor=tk.CENTER)
+                # Get the selected file extension from the combobox
+                selected_extension = self.file_extension_combobox.get()
+
+                # Filter streams based on the selected file extension
+                video = url.streams.filter(file_extension=selected_extension).first()
+
+                # Place it in the downloads folder
+                video.download(downloads_folder)
+
+                # Success message
+                label_font = customtkinter.CTkFont(family='Inter', size=15, weight='bold')
+                label = customtkinter.CTkLabel(self.root, text="Done!", font=label_font)
+                label.place(relx=0.5, rely=0.85, anchor=tk.CENTER)
+
+            # Error caught (No URL inputted/Not a YouTube URL)
+            except Exception as e:
+                # Error message text display
+                label_font = customtkinter.CTkFont(family='Inter', size=15, weight='bold')
+                label = customtkinter.CTkLabel(self.root, text="Error, paste a valid YouTube URL", font=label_font)
+                label.place(relx=0.5, rely=0.85, anchor=tk.CENTER)
+
 
 # Find user's download folder
 downloads_folder = os.path.join(os.path.expanduser('~'), 'Downloads')
