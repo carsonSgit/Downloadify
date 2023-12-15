@@ -58,11 +58,27 @@ class Downloadify:
         entry = customtkinter.CTkEntry(self.root, width=300, textvariable=self.link_var)
         entry.place(relx=0.5, rely=0.35, anchor=tk.CENTER)
 
+        # File extension dropdown menu
+        file_extension_label = customtkinter.CTkLabel(self.root, text="Select File Extension", font=label_font)
+        file_extension_label.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+
+        # Available file extensions
+        file_extensions = ['mp4', 'webm', 'mkv', 'flv', '3gp']
+
+        combobox = customtkinter.CTkComboBox(self.root, values=file_extensions)
+        combobox.place(relx=0.5, rely=0.6, anchor=tk.CENTER)
+
+
         # Download button
         button_font = customtkinter.CTkFont(family='Inter', size=16, weight='bold')
         # On download button press, call the download function
         button = customtkinter.CTkButton(master=root, text='Download', font=button_font, command=self.download)
-        button.place(relx=0.5, rely=0.55, anchor=tk.CENTER)
+        button.place(relx=0.5, rely=0.8, anchor=tk.CENTER)
+
+
+        
+
+        
 
     def download(self):
         # Try catch block to catch errors
