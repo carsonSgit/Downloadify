@@ -2,7 +2,7 @@
 
 ## About
 
-Downloadify is a GPU based Python Script inspired by Victor Kamau's ["Youtube Video Downloader using Python"](https://www.section.io/engineering-education/youtube-video-downloader-using-python/) tutorial.
+Downloadify is a GUI based Python Script inspired by Victor Kamau's ["Youtube Video Downloader using Python"](https://www.section.io/engineering-education/youtube-video-downloader-using-python/) tutorial.
 Being new to Python, I wanted something simple that I could challenge myself by improving upon.
 
 ## Improvements
